@@ -1,0 +1,16 @@
+{
+    "terminal.integrated.env.windows": {
+        "PATH": "C:\\Users\\Josef\\.platformio\\penv\\Scripts;C:\\Users\\Josef\\.platformio\\penv;C:\\Program Files (x86)\\Common Files\\Intel\\Shared Files\\cpp\\bin\\Intel64;C:\\ProgramData\\Oracle\\Java\\javapath;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common;D:\\Program Files\\nodejs\\;D:\\Program Files (x86)\\Yarn\\bin;C:\\Users\\Josef\\.cargo\\bin;C:\\Users\\Josef\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Program Files\\Microsoft VS Code\\bin;C:\\Users\\Josef\\AppData\\Roaming\\npm;C:\\Users\\Josef\\AppData\\Local\\Yarn\\bin;C:\\adb;C:\\HashiCorp\\Vagrant\\bin;C:\\Program Files\\PuTTY\\;C:\\Program Files (x86)\\Gpg4win\\..\\GnuPG\\bin;C:\\Program Files\\Git\\cmd;C:\\Program Files\\CMake\\bin;C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\System32\\Wbem;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\;C:\\WINDOWS\\System32\\OpenSSH\\;C:\\Users\\Josef\\AppData\\Local\\Programs\\Python\\Python36\\Scripts\\;C:\\Users\\Josef\\AppData\\Local\\Programs\\Python\\Python36\\;C:\\Users\\Josef\\.cargo\\bin;C:\\Users\\Josef\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Program Files\\Microsoft VS Code\\bin;C:\\Users\\Josef\\AppData\\Roaming\\npm;C:\\Users\\Josef\\AppData\\Local\\Yarn\\bin;D:\\xampp\\php;D:\\composer;D:\\Program Files (x86)\\Nmap;C:\\Program Files (x86)\\Oni;C:\\ninja;D:\\Users\\Josef\\Documents\\Projects\\aseprite\\build\\bin;;C:\\Program Files (x86)\\Common Files\\Intel\\Shared Files\\cpp\\bin\\Intel64;C:\\ProgramData\\Oracle\\Java\\javapath;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common;D:\\Program Files\\nodejs\\;D:\\Program Files (x86)\\Yarn\\bin;C:\\Users\\Josef\\.cargo\\bin;C:\\Users\\Josef\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Program Files\\Microsoft VS Code\\bin;C:\\Users\\Josef\\AppData\\Roaming\\npm;C:\\Users\\Josef\\AppData\\Local\\Yarn\\bin;C:\\adb;C:\\HashiCorp\\Vagrant\\bin;C:\\Program Files\\PuTTY\\;C:\\Program Files (x86)\\Gpg4win\\..\\GnuPG\\bin;C:\\Program Files\\Git\\cmd;C:\\Program Files\\CMake\\bin;C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\System32\\Wbem;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\;C:\\WINDOWS\\System32\\OpenSSH\\;C:\\Users\\Josef\\AppData\\Local\\Programs\\Python\\Python36\\Scripts\\;C:\\Users\\Josef\\AppData\\Local\\Programs\\Python\\Python36\\;C:\\Users\\Josef\\.cargo\\bin;C:\\Users\\Josef\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Program Files\\Microsoft VS Code\\bin;C:\\Users\\Josef\\AppData\\Roaming\\npm;C:\\Users\\Josef\\AppData\\Local\\Yarn\\bin;D:\\xampp\\php;D:\\composer;D:\\Program Files (x86)\\Nmap;C:\\Program Files (x86)\\Oni;C:\\ninja;D:\\Users\\Josef\\Documents\\Projects\\aseprite\\build\\bin;",
+        "PLATFORMIO_CALLER": "vscode"
+    },
+    "files.associations": {
+        "array": "cpp",
+        "initializer_list": "cpp",
+        "functional": "cpp",
+        "type_traits": "cpp",
+        "limits": "cpp",
+        "deque": "cpp",
+        "unordered_map": "cpp",
+        "vector": "cpp"
+    }
+}

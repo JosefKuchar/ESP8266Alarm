@@ -19,6 +19,7 @@
 #include "Settings.h"
 #include "Audio.h"
 #include "Downloader.h"
+#include "Alarm.h"
 #include "config-filip.h"
 
 // Display
@@ -40,10 +41,6 @@ int volume = 100;
 int mode = MODE_VOLUME;
 int last_click = 0;
 int last_encoder = 0;
-int alarm_hours = 0;
-int alarm_minutes = 0;
-int last_time;
-bool triggeredToday = true;
 bool download = false;
 bool play = false;
 
@@ -51,6 +48,7 @@ bool play = false;
 Downloader downloader;
 Settings settings;
 Audio audio;
+Alarm alarm;
 
 void configModeCallback(WiFiManager *wifiManager)
 {
@@ -62,31 +60,25 @@ void configModeCallback(WiFiManager *wifiManager)
     display.sendBuffer();
 }
 
+void boundValue(int *value, int min, int max)
+{
+    if (*value > max)
+    {
+        (*value) = max;
+    }
+    else if (*value < min)
+    {
+        (*value) = min;
+    }
+}
+
 void handleClick()
 {
     int now = millis();
     // Debounce
     if (!(now - last_click < 20 && now - last_click >= 0))
     {
-        if (mode == MODE_VOLUME)
-        {
-            triggeredToday = true;
-        }
-        else if (mode == MODE_ALARM_MINUTES)
-        {
-            int alarmTime = alarm_hours * 60 + alarm_minutes;
-            int currentTime = hour() * 60 + minute();
-
-            if (currentTime >= alarmTime)
-            {
-                triggeredToday = true;
-            }
-            else
-            {
-                triggeredToday = false;
-            }
-        }
-        else if (mode == MODE_ALARM)
+        if (mode == MODE_ALARM)
         {
             //digitalWrite(LED, LOW);
 
@@ -98,10 +90,44 @@ void handleClick()
             mode = -1;
         }
 
+        if (mode == MODE_VOLUME) {
+            alarm.disable();
+        }
+
+        if (mode == MODE_ALARM_MINUTES) {
+            alarm.enable();
+        }
+
         mode++;
         mode %= 3;
     }
     last_click = now;
+}
+
+void handleEncoder()
+{
+    int encoderVal = encoder.read();
+    if (encoderVal != last_encoder)
+    {
+        int value = encoderVal > last_encoder ? 1 : -1;
+
+        if (mode == MODE_VOLUME)
+        {
+            volume += value;
+            boundValue(&volume, 0, 100);
+            display.setContrast((volume / 100) * 255);
+        }
+        else if (mode == MODE_ALARM_HOURS)
+        {
+            alarm.updateRelative(value * 60);
+        }
+        else if (mode == MODE_ALARM_MINUTES)
+        {
+            alarm.updateRelative(value);
+        }
+
+        last_encoder = encoderVal;
+    }
 }
 
 void setup()
@@ -116,6 +142,9 @@ void setup()
     attachInterrupt(ROTARY_BUTTON, handleClick, RISING);
 
     pinMode(LED, OUTPUT);
+
+    SPIFFS.begin();
+    alarm.init(0); //TODO: Set time from settings
 
     settings.load();
 
@@ -136,94 +165,10 @@ void setup()
     // Sync time
     NTP.begin("pool.ntp.org", 1, true);
 
-    SPIFFS.begin();
-
     // Setup audio stuff
     audio.init();
 
-    //Serial.println(getInfoUrl());
-
-    //http://api.openweathermap.org/data/2.5/weather?id=3339540&lang=cz&units=metric&APPID=f44518c3beccf3a8093279b352376d20
     //http://api.openweathermap.org/data/2.5/forecast?id=3339540&lang=cz&units=metric&cnt=8&APPID=f44518c3beccf3a8093279b352376d20
-    //https://newsapi.org/v2/top-headlines?country=cz&apiKey=9c0defa8a121435293dedabfd5ed14a9&pageSize=3
-}
-
-void boundValue(int *value, int min, int max)
-{
-    if (*value > max)
-    {
-        (*value) = max;
-    }
-    else if (*value < min)
-    {
-        (*value) = min;
-    }
-}
-
-void boundValueCircular(int *value, int max)
-{
-    if (*value < 0)
-    {
-        (*value) = max;
-    }
-    else
-    {
-        (*value) %= max + 1;
-    }
-}
-
-String formattedAlarmTime()
-{
-    String hours;
-    String minutes;
-
-    if (alarm_hours < 10)
-    {
-        hours = "0" + String(alarm_hours);
-    }
-    else
-    {
-        hours = String(alarm_hours);
-    }
-
-    if (alarm_minutes < 10)
-    {
-        minutes = "0" + String(alarm_minutes);
-    }
-    else
-    {
-        minutes = String(alarm_minutes);
-    }
-
-    return hours + ":" + minutes;
-}
-
-void handleEncoder()
-{
-    int encoderVal = encoder.read();
-    if (encoderVal != last_encoder)
-    {
-        int value = encoderVal > last_encoder ? 1 : -1;
-
-        if (mode == MODE_VOLUME)
-        {
-            volume += value;
-            boundValue(&volume, 0, 100);
-            display.setContrast((volume / 100) * 255);
-        }
-        else if (mode == MODE_ALARM_HOURS)
-        {
-            alarm_hours += value;
-            boundValueCircular(&alarm_hours, 23);
-        }
-        else if (mode == MODE_ALARM_MINUTES)
-        {
-            alarm_minutes += value;
-            boundValueCircular(&alarm_minutes, 59);
-        }
-
-        last_encoder = encoderVal;
-    }
 }
 
 void loop()
@@ -234,20 +179,10 @@ void loop()
     }
     else
     {
-
-        int alarmTime = alarm_hours * 60 + alarm_minutes;
-        int currentTime = hour() * 60 + minute();
-
-        if (triggeredToday && last_time > currentTime && currentTime <= 40)
-        {
-            triggeredToday = false;
-        }
-
-        if (!triggeredToday && currentTime >= alarmTime)
-        {
-            //digitalWrite(LED, HIGH);
-            triggeredToday = true;
-            mode = MODE_ALARM;
+        if (mode == MODE_VOLUME) {
+            if(alarm.update()) {
+                mode = MODE_ALARM;
+            }
         }
 
         if (mode == MODE_ALARM)
@@ -265,7 +200,7 @@ void loop()
         handleEncoder();
 
         String volumeStr = String(volume) + "%";
-        String alarmStr = formattedAlarmTime();
+        String alarmStr = alarm.toString();
 
         display.clearBuffer();
 
@@ -295,8 +230,6 @@ void loop()
         }
 
         display.sendBuffer();
-
-        last_time = currentTime;
 
         if (download)
         {   

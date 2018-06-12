@@ -134,7 +134,7 @@ void Downloader::tts(String text, String filename)
 
 void Downloader::weather()
 {
-    http.begin("http://api.openweathermap.org/data/2.5/weather?id=" + String(LOCATION) + "&lang=cz&units=metric&APPID=" + String(API_WEATHER));
+    http.begin("http://api.openweathermap.org/data/2.5/weather?id=" + settings.getLocation() + "&lang=cz&units=metric&APPID=" + settings.getWeatherToken());
     int httpCode = http.GET();
     if (httpCode == HTTP_CODE_OK)
     {
@@ -157,7 +157,7 @@ void Downloader::weather()
 
 void Downloader::news()
 {
-    http.begin("http://newsapi.org/v2/top-headlines?country=cz&apiKey=9c0defa8a121435293dedabfd5ed14a9&pageSize=3");
+    http.begin("http://newsapi.org/v2/top-headlines?country=cz&apiKey=" + settings.getNewsToken() + "&pageSize=3");
     int httpCode = http.GET();
     if (httpCode == HTTP_CODE_OK)
     {

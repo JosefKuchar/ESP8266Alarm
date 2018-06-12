@@ -7,6 +7,10 @@
 #include <FS.h>
 #include <NtpClientLib.h>
 
+#include "Settings.h" 
+
+extern Settings settings;
+
 class Downloader {
     public:
         void download();

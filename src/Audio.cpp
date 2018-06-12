@@ -2,7 +2,7 @@
 
 void Audio::init() {
     out = new AudioOutputI2SNoDAC();
-    mp3 = new AudioGeneratorMP3(); 
+    mp3 = new AudioGeneratorMP3();
 }
 
 bool Audio::isRunning() {

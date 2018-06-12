@@ -9,9 +9,15 @@ void Settings::load() {
     DynamicJsonBuffer jsonBuffer(bufferSize);
     JsonObject& json = jsonBuffer.parseObject(buf.get());
     JsonObject& display = json["display"];
+    JsonObject& api = json["api"];
+    JsonObject& weatherAPI = api["weather"];
+    JsonObject& newsAPI = api["news"];
 
     displayOrientation = display.get<bool>("orientation");
     displayBrightness = display.get<uint8_t>("brightness");
+    location = weatherAPI.get<char*>("location");
+    weatherToken = weatherAPI.get<char*>("token");
+    newsToken = newsAPI.get<char*>("token");
 }
 
 bool Settings::getDisplayOrientation() {
@@ -28,4 +34,20 @@ uint8_t Settings::getDisplayBrightness() {
 
 void Settings::setDisplayBrightness(uint8_t brightness) {
     displayBrightness = brightness;
+}
+
+String Settings::getLocation() {
+    return location;
+}
+
+void Settings::setLocation(char* loc) {
+    location = loc;
+}
+
+String Settings::getWeatherToken() {
+    return weatherToken;
+}
+
+void Settings::setWeatherToken(char* token) {
+    weatherToken = token;
 }

@@ -144,9 +144,8 @@ void setup()
     pinMode(LED, OUTPUT);
 
     SPIFFS.begin();
-    alarm.init(0); //TODO: Set time from settings
-
     settings.load();
+    alarm.init(0); //TODO: Set time from settings
 
     // Init display
     display.begin();
@@ -168,6 +167,7 @@ void setup()
     // Setup audio stuff
     audio.init();
 
+    downloader.download();
     //http://api.openweathermap.org/data/2.5/forecast?id=3339540&lang=cz&units=metric&cnt=8&APPID=f44518c3beccf3a8093279b352376d20
 }
 

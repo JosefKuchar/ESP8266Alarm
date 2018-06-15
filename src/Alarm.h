@@ -3,17 +3,20 @@
 
 #include "Arduino.h"
 #include <NtpClientLib.h>
+#include "Settings.h"
+
+extern Settings settings;
 
 class Alarm {
     public:
         void init();
-        void init(int time);
         void set(int time);
         void enable();
         void disable();
         String toString();
         bool update();
         void updateRelative(int value);
+        int getTriggertime();
     private:
         int triggerTime;
         int lastTime;

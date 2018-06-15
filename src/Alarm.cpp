@@ -5,19 +5,14 @@ int getCurrentTime() {
 }
 
 void Alarm::init() {
-    triggerTime = 0;
-    triggeredToday = true;
-}
-
-void Alarm::init(int time) {
-    triggerTime = time;
-    triggeredToday = true;
+    triggerTime = settings.getAlarmTime();
+    enabled = settings.getAlarmState();
+    triggeredToday = getCurrentTime() >= triggerTime;
 }
 
 void Alarm::set(int time) {
     triggerTime = time;
-
-   triggeredToday = getCurrentTime() >= triggerTime;
+    triggeredToday = getCurrentTime() >= triggerTime;
 }
 
 bool Alarm::update() {
@@ -87,4 +82,8 @@ void Alarm::enable() {
 
 void Alarm::disable() {
     enabled = false;
+}
+
+int Alarm::getTriggertime() {
+    return triggerTime;
 }

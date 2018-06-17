@@ -24,6 +24,8 @@ void Settings::load() {
     alarmEnabled = alarm.get<bool>("enabled");
     alarmVoice = alarm.get<bool>("voice");
 
+    encoderDirection = json.get<bool>("encoder-direction");
+
     configFile.close();
 }
 
@@ -44,6 +46,7 @@ void Settings::save() {
     weather["location"] = location;
     JsonObject& news = api.createNestedObject("news");
     news["token"] = newsToken;
+    json["encoder-direction"] = encoderDirection;
 
     //SPIFFS.remove("/config.json");
     File configFile = SPIFFS.open("/config.json", "w");
@@ -93,7 +96,6 @@ void Settings::setNewsToken(char* token) {
 }
 
 int Settings::getAlarmTime() {
-    Serial.println(alarmTime);
     return alarmTime;
 }
 
@@ -115,4 +117,12 @@ bool Settings::getAlarmState() {
 
 void Settings::setAlarmState(bool state) {
     alarmEnabled = state;
+}
+
+bool Settings::getEncoderDirection() {
+    return encoderDirection;
+}
+
+void Settings::setEncoderDirection(bool direction) {
+    encoderDirection = direction;
 }

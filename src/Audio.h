@@ -1,13 +1,16 @@
 #ifndef Audio_h
 #define Audio_h
 
+#include <Arduino.h>
 #include "Settings.h"
+#include "Screen.h"
 #include <ESP8266Spiram.h>
 #include <AudioFileSourceSPIFFS.h>
 #include <AudioGeneratorMP3.h>
 #include <AudioOutputI2SNoDAC.h>
 #include <AudioFileSourceID3.h>
 
+extern Screen screen;
 extern Settings settings;
 
 class Audio {
@@ -21,6 +24,7 @@ class Audio {
         AudioFileSourceSPIFFS *file;
         AudioOutputI2SNoDAC *out;
         AudioFileSourceID3 *id3;
+        bool initialized;
         int currentFile;
         int fileCount;
         char* fileNames[];

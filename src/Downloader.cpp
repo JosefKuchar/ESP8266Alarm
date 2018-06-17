@@ -90,12 +90,7 @@ unsigned char h2int(char c)
 
 void Downloader::tts(String text, String filename)
 {
-    /*
-    display.clearBuffer();
-    display.setFont(u8g2_font_ncenB14_tr);
-    display.drawStr(0, 14, "Downloading");
-    display.drawStr(0, 32, "audio...");
-    display.sendBuffer();*/
+    screen.showDownloadingAudio();
 
     // Begin request with URL encoded text
     http.begin("http://translate.google.com/translate_tts?ie=UTF-8&q=" + urlencode(text) + "&tl=cs&client=tw-ob");
@@ -175,7 +170,9 @@ void Downloader::news()
 }
 
 void Downloader::download() {
+    screen.showDownloadingData();
     this->weather();
+    screen.showDownloadingData();
     this->news();
 }
 

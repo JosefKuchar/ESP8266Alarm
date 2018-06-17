@@ -6,7 +6,6 @@ int getCurrentTime() {
 
 void Alarm::init() {
     triggerTime = settings.getAlarmTime();
-    enabled = settings.getAlarmState();
     triggeredToday = getCurrentTime() >= triggerTime;
 }
 
@@ -16,7 +15,7 @@ void Alarm::set(int time) {
 }
 
 bool Alarm::update() {
-    if (!enabled) {
+    if (!settings.getAlarmState()) {
         return false;
     }
 
@@ -32,21 +31,12 @@ bool Alarm::update() {
 
     if (!triggeredToday && currentTime >= triggerTime) {
         triggeredToday = true;
+        active = true;
         return true;
     }
 
     lastTime = currentTime;
     return false;
-}
-
-void Alarm::updateRelative(int value) {
-    triggerTime += value;
-
-    if (triggerTime < 0) {
-        triggerTime += 24 * 60;
-    }
-
-    triggerTime %= 24 * 60;
 }
 
 String Alarm::toString()
@@ -75,15 +65,6 @@ String Alarm::toString()
     return hours + ":" + minutes;
 }
 
-void Alarm::enable() {
-    enabled = true;
-    triggeredToday = getCurrentTime() >= triggerTime;
-}
-
-void Alarm::disable() {
-    enabled = false;
-}
-
-int Alarm::getTriggertime() {
-    return triggerTime;
+void Alarm::disarm() {
+    active = false;
 }

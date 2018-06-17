@@ -1,7 +1,7 @@
 #ifndef Settings_h
 #define Settings_h
 
-#include "Arduino.h"
+#include <Arduino.h>
 #include <ArduinoJson.h>
 #include <FS.h>
 
@@ -28,6 +28,9 @@ class Settings {
         void setVoiceState(bool state);
         bool getAlarmState();
         void setAlarmState(bool state);
+        // Encoder
+        bool getEncoderDirection();
+        void setEncoderDirection(bool direction);
 
     private:
         // Display
@@ -41,5 +44,7 @@ class Settings {
         bool alarmEnabled;
         uint16_t alarmTime;
         bool alarmVoice;
+        // Encoder
+        bool encoderDirection;
 };
 #endif

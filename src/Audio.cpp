@@ -1,12 +1,18 @@
 #include "Audio.h"
 
 void Audio::init() {
-    out = new AudioOutputI2SNoDAC();
-    mp3 = new AudioGeneratorMP3();
+    if (settings.getVoiceState()) {
+        out = new AudioOutputI2SNoDAC();
+        mp3 = new AudioGeneratorMP3();
+        initialized = true;
+    }
 }
 
 bool Audio::isRunning() {
-    return mp3->isRunning();
+    if (settings.getVoiceState()) {
+        return mp3->isRunning();
+    }
+    return false;
 }
 
 void Audio::loop() {
@@ -28,6 +34,8 @@ void Audio::loop() {
 }
 
 void Audio::play(int len) {
+    screen.showPlayingAudio();
+
     file = new AudioFileSourceSPIFFS("/0.mp3");
     id3 = new AudioFileSourceID3(file);
     mp3->begin(id3, out);

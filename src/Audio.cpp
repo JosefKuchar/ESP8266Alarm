@@ -34,8 +34,6 @@ void Audio::loop() {
 }
 
 void Audio::play(int len) {
-    screen.showPlayingAudio();
-
     file = new AudioFileSourceSPIFFS("/0.mp3");
     id3 = new AudioFileSourceID3(file);
     mp3->begin(id3, out);

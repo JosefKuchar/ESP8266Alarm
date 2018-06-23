@@ -36,16 +36,15 @@
 #define OPTION_ENABLED          3
 #define OPTION_VOICE            4 
 
-/*
+
 #include "Downloader.h"
-#include "Audio.h"*/
+#include "Audio.h"
 
 extern Settings settings;
 extern Alarm alarm;
 extern Rotary rotary;
-/*
 extern Downloader downloader;
-extern Audio audio;*/
+extern Audio audio;
 
 class Screen{
     public:
@@ -59,7 +58,7 @@ class Screen{
         void showPlayingAudio();
 
         Screen()
-            : display(U8G2_R0, SCL, SDA, OLED_RESET) {
+            : display(U8G2_R0, SCL, SDA) {
         }
     private:
         U8G2_SSD1306_128X32_UNIVISION_F_SW_I2C display;

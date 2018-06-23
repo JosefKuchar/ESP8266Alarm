@@ -8,10 +8,8 @@
 #include <NtpClientLib.h>
 
 #include "Settings.h"
-#include "Screen.h"
 
 extern Settings settings;
-extern Screen screen;
 
 class Downloader {
     public:

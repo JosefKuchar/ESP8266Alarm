@@ -90,9 +90,8 @@ unsigned char h2int(char c)
 
 void Downloader::tts(String text, String filename)
 {
-    screen.showDownloadingAudio();
-
     // Begin request with URL encoded text
+    Serial.println("http://translate.google.com/translate_tts?ie=UTF-8&q=" + urlencode(text) + "&tl=cs&client=tw-ob");
     http.begin("http://translate.google.com/translate_tts?ie=UTF-8&q=" + urlencode(text) + "&tl=cs&client=tw-ob");
     // Add fake android headers to bypass the user checks
     http.addHeader(F("User-Agent"), F("stagefright/1.2 (Linux;Android 5.0)"));
@@ -128,7 +127,7 @@ void Downloader::tts(String text, String filename)
 }
 
 void Downloader::weather()
-{
+{   
     http.begin("http://api.openweathermap.org/data/2.5/weather?id=" + settings.getLocation() + "&lang=cz&units=metric&APPID=" + settings.getWeatherToken());
     int httpCode = http.GET();
     if (httpCode == HTTP_CODE_OK)
@@ -170,9 +169,7 @@ void Downloader::news()
 }
 
 void Downloader::download() {
-    screen.showDownloadingData();
     this->weather();
-    screen.showDownloadingData();
     this->news();
 }
 

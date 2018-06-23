@@ -109,11 +109,12 @@ void Screen::update() {
             alarm.disarm();
             digitalWrite(LED, LOW);
             
-            /*
             if (settings.getVoiceState()) {
+                showDownloadingAudio();
                 downloader.download();
+                showPlayingAudio();
                 audio.play(4);
-            }*/
+            }
 
             return;
         }

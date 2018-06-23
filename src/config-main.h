@@ -1,0 +1,9 @@
+// Define pins
+#define ROTARY_A        D6
+#define ROTARY_B        D5
+#define ROTARY_BUTTON   D7
+#define SCL             D1
+#define SDA             D2
+#define LED             D8
+#define BUTTON_LED      D0
+#define BUTTON          D4

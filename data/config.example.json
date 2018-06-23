@@ -1,0 +1,22 @@
+{
+    "alarm": {
+        "enabled": true,
+        "time": 255,
+        "voice": false
+    },
+    "display": {
+        "orientation": false,
+        "brightness": 255
+    },
+    "api": {
+        "weather": {
+            "token": "00000000000000000000000000000000",
+            "location": "0000000"
+        },
+        "news": {
+            "token": "00000000000000000000000000000000",
+            "count": 3
+        }
+    },
+    "encoder-direction": false
+}
